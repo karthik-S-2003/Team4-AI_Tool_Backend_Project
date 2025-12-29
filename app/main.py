@@ -6,9 +6,9 @@ from app.user.routes import router as user_router
 from app.models import Admin
 from app.auth import get_password_hash
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-   
     db = SessionLocal()
     try:
         admin = db.query(Admin).filter(Admin.username == "admin").first()
@@ -19,23 +19,24 @@ async def lifespan(app: FastAPI):
             )
             db.add(admin)
             db.commit()
-            print(" Admin auto-created")
+            print("Admin auto-created")
         else:
-            print(" Admin already exists")
+            print("Admin already exists")
     finally:
         db.close()
 
-    yield  
-
+    yield
 
 
 app = FastAPI(
     title="AI Tool Finder",
     lifespan=lifespan
 )
+
 app.include_router(admin_router)
 app.include_router(user_router)
 
+# Create tables once
 Base.metadata.create_all(bind=engine)
 
 
