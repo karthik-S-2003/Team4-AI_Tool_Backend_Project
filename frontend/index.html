@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Tool Finder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>AI Tool Finder</h1>
+
+<input
+  type="text"
+  id="search"
+  placeholder="Search tools by name..."
+  oninput="loadTools()"
+/>
+
+<div class="filters">
+  <select id="category" onchange="loadTools()">
+    <option value="">All Categories</option>
+    <option>NLP</option>
+    <option>Computer Vision</option>
+    <option>Dev Tools</option>
+    <option>Productivity</option>
+  </select>
+
+  <select id="pricing" onchange="loadTools()">
+    <option value="">All Pricing</option>
+    <option>Free</option>
+    <option>Paid</option>
+    <option>Subscription</option>
+  </select>
+
+  <select id="sort" onchange="loadTools()">
+    <option value="">Sort</option>
+    <option value="high">Rating: High → Low</option>
+    <option value="low">Rating: Low → High</option>
+  </select>
+</div>
+
+<div id="tools"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
