@@ -11,7 +11,6 @@ from ..database import get_db
 router = APIRouter(prefix='/admin',tags=['Admin'])
 
 
-# ---- Admin Login ----
 @router.post("/login")
 def admin_login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     admin = authenticate_admin(db, form_data.username, form_data.password)
@@ -21,10 +20,22 @@ def admin_login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = 
     access_token = create_access_token(data={"sub": admin.username}, expires_delta=access_token_expires)
     return {"access_token": access_token, "token_type": "bearer"}
 
-# ---- Admin APIs ----
+
 @router.post("/tools", response_model=schemas.AITool)
-def add_tool(tool: schemas.AIToolCreate, db: Session = Depends(get_db), admin: models.Admin = Depends(get_current_admin)):
-    return crud.create_tool(db, tool)
+def add_tool(
+    tool: schemas.AIToolCreate,
+    db: Session = Depends(get_db),
+    admin: models.Admin = Depends(get_current_admin)
+):
+    created_tool = crud.create_tool(db, tool)
+
+    if not created_tool:
+        raise HTTPException(
+            status_code=400,
+            detail="Tool already exists with same details"
+        )
+
+    return created_tool
 
 @router.put("/tools/{tool_id}", response_model=schemas.AITool)
 def edit_tool(tool_id: str, tool: schemas.AIToolCreate, db: Session = Depends(get_db), admin: models.Admin = Depends(get_current_admin)):
