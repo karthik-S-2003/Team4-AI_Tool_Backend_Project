@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel</title>
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+
+<body>
+  <h1 class="page-title" id="admin-title">Admin Panel</h1>
+
+
+  <!-- LOGIN -->
+  <div class="login-wrapper">
+    <div class="login-card">
+      <h2><i class="fa fa-lock"></i> Admin Login</h2>
+      <input id="username" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
+      <button class="login-btn" onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="admin-panel" class="hidden">
+    <button class="logout-btn" onclick="logout()">
+      <i class="fa fa-sign-out-alt"></i> Logout
+    </button>
+
+    <h3>Add Tool</h3>
+    <div class="add-tool-row">
+      <input id="name" placeholder="Tool Name">
+      <input id="usecase" placeholder="Use Case">
+      <select id="categoryA">
+        <option>NLP</option>
+        <option>Computer Vision</option>
+        <option>Dev Tools</option>
+        <option>Productivity</option>
+      </select>
+      <select id="pricingA">
+        <option>Free</option>
+        <option>Paid</option>
+        <option>Subscription</option>
+      </select>
+      <button onclick="addTool()">Add</button>
+    </div>
+
+    <h3>Manage Tools</h3>
+    <table class="tool-table">
+      <thead>
+        <tr>
+          <th>Name</th><th>Category</th><th>Pricing</th><th>Rating</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tools-body"></tbody>
+    </table>
+
+    <h3>Pending Reviews</h3>
+    <div id="reviews"></div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

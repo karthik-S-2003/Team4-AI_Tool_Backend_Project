@@ -3,7 +3,7 @@ from app.models import AITool, Review
 import uuid
 from sqlalchemy import func
 
-# Tools
+
 def get_tools(db: Session, category=None, pricing_type=None, rating_gte=None):
     query = db.query(AITool)
     if category:
@@ -15,7 +15,20 @@ def get_tools(db: Session, category=None, pricing_type=None, rating_gte=None):
     return query.all()
 
 def create_tool(db: Session, tool_data):
-    tool = AITool(id=str(uuid.uuid4()), **tool_data.model_dump())
+    existing_tool = db.query(AITool).filter(
+        AITool.name == tool_data.name,
+       
+        AITool.category == tool_data.category,
+        AITool.pricing_type == tool_data.pricing_type
+    ).first()
+
+    if existing_tool:
+        return None 
+    tool = AITool(
+        id=str(uuid.uuid4()),
+        **tool_data.model_dump()
+    )
+
     db.add(tool)
     db.commit()
     db.refresh(tool)
@@ -70,3 +83,10 @@ def reject_review(db: Session, review_id: str):
     db.commit()
     return review
 
+def get_approved_reviews(db: Session, tool_id: str | None = None):
+    query = db.query(Review).filter(Review.status == "Approved")
+
+    if tool_id:
+        query = query.filter(Review.tool_id == tool_id)
+
+    return query.all()

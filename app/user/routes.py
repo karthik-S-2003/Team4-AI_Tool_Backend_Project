@@ -10,7 +10,7 @@ from ..database import get_db
 
 
 router = APIRouter(prefix="/users",tags=['Users'])
-# ---- Public APIs ----
+
 @router.get("/tools", response_model=list[schemas.AITool])
 def list_tools(
     category: str = None,
@@ -23,3 +23,10 @@ def list_tools(
 @router.post("/review", response_model=schemas.Review)
 def submit_review(review: schemas.ReviewCreate, db: Session = Depends(get_db)):
     return crud.create_review(db, review)
+
+@router.get("/reviews", response_model=list[schemas.Review])
+def list_approved_reviews(
+    tool_id: str | None = None,
+    db: Session = Depends(get_db)
+):
+    return crud.get_approved_reviews(db, tool_id)

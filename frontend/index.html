@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Tool Finder</title>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <h2 class="logo">AI Tool Finder</h2>
+    <a href="admin.html" class="admin-btn">
+      <i class="fa fa-user-shield"></i> Admin Login
+    </a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Discover the Best AI Tools</h1>
+    <p>Explore, review and compare powerful AI tools in one place</p>
+
+    <div class="search-box">
+      <i class="fa fa-search"></i>
+      <input
+        type="text"
+        id="search"
+        placeholder="Search AI tools..."
+        oninput="loadTools()"
+      />
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="filters">
+    <select id="category" onchange="loadTools()">
+      <option value="">All Categories</option>
+      <option>NLP</option>
+      <option>Computer Vision</option>
+      <option>Dev Tools</option>
+      <option>Productivity</option>
+    </select>
+
+    <select id="pricing" onchange="loadTools()">
+      <option value="">All Pricing</option>
+      <option>Free</option>
+      <option>Paid</option>
+      <option>Subscription</option>
+    </select>
+
+    <select id="sort" onchange="loadTools()">
+      <option value="">Sort</option>
+      <option value="high">Rating: High → Low</option>
+      <option value="low">Rating: Low → High</option>
+    </select>
+  </section>
+
+  <!-- TOOLS -->
+  <section class="tools-wrapper">
+    <h2>All AI Tools</h2>
+    <div id="tools" class="tools-grid"></div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
