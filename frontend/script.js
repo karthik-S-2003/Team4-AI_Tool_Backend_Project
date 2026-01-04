@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:800";
+const API = "http://127.0.0.1:9000";
 let ratings = {};
 
 /* =========================
@@ -18,7 +18,6 @@ async function loadTools() {
   const search = document.getElementById("search").value.toLowerCase();
   const sort = document.getElementById("sort").value;
 
-  /* Build tools URL safely */
   let toolsUrl = `${API}/users/tools`;
   const params = [];
 
@@ -29,22 +28,17 @@ async function loadTools() {
     toolsUrl += `?${params.join("&")}`;
   }
 
-  /* Fetch tools + approved reviews together */
   const [toolsRes, reviews] = await Promise.all([
     fetch(toolsUrl),
-    fetchApprovedReviews()
+    fetchApprovedReviews(),
   ]);
 
   let tools = await toolsRes.json();
 
-  /* Search */
   if (search) {
-    tools = tools.filter(t =>
-      t.name.toLowerCase().includes(search)
-    );
+    tools = tools.filter((t) => t.name.toLowerCase().includes(search));
   }
 
-  /* Sort */
   if (sort === "high") {
     tools.sort((a, b) => b.average_rating - a.average_rating);
   }
@@ -52,40 +46,53 @@ async function loadTools() {
     tools.sort((a, b) => a.average_rating - b.average_rating);
   }
 
-  /* Group reviews by tool_id */
   const reviewsByTool = {};
-  reviews.forEach(r => {
+  reviews.forEach((r) => {
     if (!reviewsByTool[r.tool_id]) {
       reviewsByTool[r.tool_id] = [];
     }
     reviewsByTool[r.tool_id].push(r);
   });
 
-  /* Render UI */
   const container = document.getElementById("tools");
   container.innerHTML = "";
 
-  tools.forEach(tool => {
+  tools.forEach((tool) => {
     const toolReviews = reviewsByTool[tool.id] || [];
 
     container.innerHTML += `
       <div class="tool">
-        <h3>${tool.name}</h3>
-        <p>${tool.use_case || ""}</p>
-        <p><b>Category:</b> ${tool.category}</p>
-        <p><b>Pricing:</b> ${tool.pricing_type}</p>
-        <p><b>Rating:</b> ⭐ ${tool.average_rating.toFixed(1)}</p>
+
+        <div class="tool-header">
+          <div>
+            <h3>${tool.name}</h3>
+            <p>${tool.use_case || ""}</p>
+          </div>
+
+          <div class="tool-badges">
+            <span class="badge category">${tool.category}</span>
+            <span class="badge pricing">${tool.pricing_type}</span>
+            <span class="badge rating-badge">
+              <i class="fa fa-star"></i>
+              ${tool.average_rating.toFixed(1)}
+            </span>
+          </div>
+        </div>
 
         <div class="reviews">
           <h4>Reviews (${toolReviews.length})</h4>
           ${
             toolReviews.length === 0
               ? `<p class="no-review">No reviews yet</p>`
-              : toolReviews.map(r => `
+              : toolReviews
+                  .map(
+                    (r) => `
                   <p class="review">
                     ⭐ ${r.rating} – ${r.comment || "No comment"}
                   </p>
-                `).join("")
+                `
+                  )
+                  .join("")
           }
         </div>
 
@@ -94,6 +101,7 @@ async function loadTools() {
           <input type="text" placeholder="Comment" id="c-${tool.id}">
           <button onclick="submitReview('${tool.id}')">Submit Review</button>
         </div>
+
       </div>
     `;
   });
@@ -121,11 +129,8 @@ function renderStars(toolId) {
 
 function hoverStars(toolId, value) {
   const stars = document.querySelectorAll(`.star[data-tool="${toolId}"]`);
-  stars.forEach(star => {
-    star.classList.toggle(
-      "active",
-      Number(star.dataset.value) <= value
-    );
+  stars.forEach((star) => {
+    star.classList.toggle("active", Number(star.dataset.value) <= value);
   });
 }
 
@@ -157,8 +162,8 @@ async function submitReview(toolId) {
     body: JSON.stringify({
       tool_id: toolId,
       rating: rating,
-      comment: comment
-    })
+      comment: comment,
+    }),
   });
 
   alert("Review submitted (Pending Approval)");
