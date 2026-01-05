@@ -1,0 +1,336 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: #f5f7fb;
+  color: #1f2937;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.admin-btn {
+  background: #4f46e5;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.admin-btn:hover {
+  background: #4338ca;
+}
+
+/* ================= HERO ================= */
+.hero {
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+/* ================= SEARCH ================= */
+.search-box {
+  margin: 30px auto 0;
+  max-width: 520px;
+  background: white;
+  border-radius: 30px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box i {
+  color: #9ca3af;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 15px;
+}
+
+/* ================= FILTERS ================= */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 30px auto;
+}
+
+.filters select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+/* ================= TOOLS ================= */
+.tools-wrapper {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.tools-wrapper h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* ================= TOOL CARD – PREMIUM ================= */
+.tool {
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tool:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+}
+
+/* Tool title */
+.tool h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2px;
+}
+
+/* Use case / description */
+.tool p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+/* Meta info rows */
+.tool p b {
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Rating */
+.tool .rating {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #f59e0b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Reviews section */
+.tool .reviews {
+  margin-top: 8px;
+  padding: 10px;
+  background: #f9fafb;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #4b5563;
+}
+
+/* Review input area */
+.tool .review-box {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tool .review-box input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+}
+
+.tool .review-box input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* Submit button */
+.tool .review-box button {
+  background: #4f46e5;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  transition: background 0.2s ease;
+}
+
+.tool .review-box button:hover {
+  background: #4338ca;
+}
+
+/* Category / Pricing badge */
+.badge {
+  align-self: flex-start;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-top: 6px;
+}
+/* ================= TOOL HEADER LAYOUT ================= */
+
+.tool-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* Right side badges */
+.tool-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Common badge */
+.badge {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Category badge */
+.badge.category {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+/* Pricing badge */
+.badge.pricing {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Rating badge */
+.badge.rating-badge {
+  background: #fef3c7;
+  color: #b45309;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ================= STAR RATING ================= */
+.star {
+  font-size: 20px;
+  cursor: pointer;
+  color: #d1d5db;          /* default gray */
+  margin-right: 4px;
+  transition: color 0.2s ease;
+}
+
+/* hover & selected */
+.star.active {
+  color: #f59e0b;          /* gold */
+}
+
+/* optional: smoother hover */
+.star:hover {
+  transform: scale(1.1);
+}
+
+
+/* =====================
+   REVIEW ACTIONS (UPDATED)
+===================== */
+.review-item {
+  background: #f9fafb;
+  padding: 14px 16px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #374151;
+  flex: 1;
+}
+
+.review-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.review-actions button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Same base style, different emphasis */
+.approve-btn {
+  background: #4f46e5;   /* indigo */
+}
+
+.approve-btn:hover {
+  background: #4338ca;
+}
+
+.reject-btn {
+  background: #6b7280;   /* neutral gray */
+}
+
+.reject-btn:hover {
+  background: #4b5563;
+}
